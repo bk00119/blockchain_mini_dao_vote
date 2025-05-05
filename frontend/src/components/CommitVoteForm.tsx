@@ -47,7 +47,7 @@ export default function CommitVoteForm() {
     if (voteSubmitted) {
       setSubmitted(true);
     }
-    if (error){
+    if (error) {
       setSubmitted(false);
     }
   }, [error]);
@@ -55,62 +55,66 @@ export default function CommitVoteForm() {
   return (
     <div className="m-4 w-fit min-w-sm max-w-md flex flex-col gap-4">
       <h2 className="text-lg font-semibold">Vote</h2>
-      {/* VOTE SELECTION */}
-      <div>
-        <div className="flex gap-4">
-          <label className="cursor-pointer">
+      {!submitted && (
+        <>
+          {/* VOTE SELECTION */}
+          <div>
+            <div className="flex gap-4">
+              <label className="cursor-pointer">
+                <input
+                  type="radio"
+                  checked={vote === 1}
+                  onChange={() => setVote(1)}
+                />
+                <span className="ml-2">Yes</span>
+              </label>
+              <label className="cursor-pointer">
+                <input
+                  type="radio"
+                  checked={vote === 0}
+                  onChange={() => setVote(0)}
+                />
+                <span className="ml-2">No</span>
+              </label>
+            </div>
+          </div>
+
+          {/* SALT INPUT */}
+          <div>
+            <label className="block mb-1">Salt</label>
             <input
-              type="radio"
-              checked={vote === 1}
-              onChange={() => setVote(1)}
+              type="text"
+              value={salt}
+              onChange={(e) => setSalt(e.target.value)}
+              className="w-full border px-3 py-2 rounded"
+              placeholder="Type a string to generate hash"
             />
-            <span className="ml-2">Yes</span>
-          </label>
-          <label className="cursor-pointer">
-            <input
-              type="radio"
-              checked={vote === 0}
-              onChange={() => setVote(0)}
-            />
-            <span className="ml-2">No</span>
-          </label>
-        </div>
-      </div>
+          </div>
 
-      {/* SALT INPUT */}
-      <div>
-        <label className="block mb-1">Salt</label>
-        <input
-          type="text"
-          value={salt}
-          onChange={(e) => setSalt(e.target.value)}
-          className="w-full border px-3 py-2 rounded"
-          placeholder="Type a string to generate hash"
-        />
-      </div>
+          {/* HASH VALUE */}
+          {hash && <p className="w-full">Hash: {hash}</p>}
+          <div className="flex flex-row">
+            {/* HASH GENERATION BUTTON */}
+            <button
+              onClick={calculateHash}
+              className="bg-gray-600 text-white px-4 py-2 mr-2 rounded cursor-pointer"
+            >
+              Generate Hash
+            </button>
 
-      {/* HASH VALUE */}
-      {hash && <p className="w-full">Hash: {hash}</p>}
-      <div className="flex flex-row">
-        {/* HASH GENERATION BUTTON */}
-        <button
-          onClick={calculateHash}
-          className="bg-gray-600 text-white px-4 py-2 mr-2 rounded cursor-pointer"
-        >
-          Generate Hash
-        </button>
-
-        {/* VOTE SUBMISSION BUTTON */}
-        <button
-          onClick={handleSubmit}
-          className="bg-blue-600 text-white px-4 py-2 rounded cursor-pointer"
-        >
-          Submit Vote
-        </button>
-      </div>
+            {/* VOTE SUBMISSION BUTTON */}
+            <button
+              onClick={handleSubmit}
+              className="bg-blue-600 text-white px-4 py-2 rounded cursor-pointer"
+            >
+              Submit Vote
+            </button>
+          </div>
+        </>
+      )}
 
       {/* VOTE SUBMISSION RESULT */}
-      {isSuccess && submitted && <p>Vote submitted!</p>}
+      {submitted && <p>Vote submitted!</p>}
       {error && <p className="text-red-600">Error: {error.message}</p>}
     </div>
   );

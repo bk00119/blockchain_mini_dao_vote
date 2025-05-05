@@ -1,5 +1,6 @@
 # INSTRUCTIONS
 ```sh
+npm i
 vim .env
 # PRIVATE_KEY: Crypto Wallet Private Key (ex. MetaMask)
 # ALCHEMY_API_KEY: API Key from dashboard.alchemy.com
@@ -16,6 +17,7 @@ npx hardhat run scripts/deploy.js --network sepolia
 # LOCAL NEXT.JS APP
 ```sh
 cd frontend
+npm i
 vim .env.local
 # NEXT_PUBLIC_CONTRACT_ADDRESS: Output from npx hardhat run scripts/deploy.js --network sepolia
 # NEXT_PUBLIC_PROJECT_ID: Project ID from https://cloud.reown.com
